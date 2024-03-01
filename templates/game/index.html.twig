@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GameController!{% endblock %}
+
+
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+            <a href=" {{ path('app_game_admin') }}">admin</a>
+    {% endif %}
+    <h1>Hello GameController!</h1>
+    {% for game  in games %}
+        <h2>{{ game.name|raw }}</h2>
+        <p>{{ game.content|raw }}</p>
+        <a href="{{ path('app_game_show', {'slug': game.slug}) }}">Voir</a>
+    {% endfor %}
+
+{% endblock %}

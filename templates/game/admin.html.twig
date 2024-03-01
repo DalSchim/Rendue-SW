@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block title %}Hello GameController!{% endblock %}
+    <a href=" {{ path('app_game') }}">retour menu</a>
+    <h3 class="">ajout d'un game</h3>
+    {{ form(form) }}
+    </form>
+
+{% for game  in games %}
+
+    <h2>{{ game.name |raw }}</h2>
+    <p>{{ game.content |raw }}</p>
+    <a href="{{ path('app_game_show', {'slug': game.slug}) }}">more</a>
+    <a href="{{ path('app_game_edit', {'slug': game.slug}) }}">Edit</a>
+    <form action="{{ path('app_game_delete', {id:game.id}) }}" method="post">
+        <input type="hidden" name="token" value="{{ csrf_token('delete' ~ game.id) }}">
+        <button type="submit">Delete</button>
+    </form>
+    {% else   %}
+    <p>No game found</p>
+{% endfor %}
+
+{% endblock %}
